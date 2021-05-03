@@ -1,0 +1,27 @@
+[target.x86_64-pc-windows-msvc]
+linker    = "rust-lld.exe"
+rustflags = ["-Zshare-generics=y"]
+
+# Enable optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+codegen-units    = 1
+debug-assertions = false
+incremental      = false
+opt-level        = 3
+overflow-checks  = false
+
+[profile.dev]
+codegen-units    = 1024
+debug-assertions = true
+incremental      = true
+lto              = "off"
+opt-level        = 0
+overflow-checks  = true
+
+[profile.release]
+codegen-units    = 1
+debug-assertions = false
+incremental      = false
+lto              = "fat"
+opt-level        = 3
+overflow-checks  = false
